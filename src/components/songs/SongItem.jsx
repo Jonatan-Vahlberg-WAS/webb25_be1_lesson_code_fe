@@ -1,3 +1,5 @@
+import RequireAuth from "../RequireAuth";
+
 function formatDuration(seconds) {
   const mins = Math.floor(seconds / 60);
   const secs = seconds % 60;
@@ -37,6 +39,11 @@ function SongItem({ song, index }) {
       </div>
       <span className="song-row__album">{song.album?.title ?? "Single"}</span>
       <span className="song-row__duration">{formatDuration(song.length)}</span>
+      <RequireAuth roles={["admin"]}>
+        <button onClick={() => {
+          alert(`Deleting song ${song.title}`)
+        }}>Delete song</button>
+      </RequireAuth>
     </div>
   );
 }
