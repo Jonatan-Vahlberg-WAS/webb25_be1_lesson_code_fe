@@ -1,22 +1,21 @@
 import { useState } from "react";
 import Modal from "./Modal";
-import { login } from "../../api/auth";
+import { useAuth } from "../../contexts/authContext";
 
 export default function LoginModal({ open, onClose }) {
+
+  const auth = useAuth()
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("")
   const [error, setError] = useState(null)
-  const [user, setUser] = useState(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError(null)
     console.log(email, password)
     try {
-      const response = await login({email, password})
-      console.log(response)
-      setUser(response.user)
-      //TODO handle login data with Auth
+      await auth.actions.login({email, password})
     } catch (error) {
       console.warn(error)
       const data = await error.json()
@@ -28,7 +27,7 @@ export default function LoginModal({ open, onClose }) {
   }
 
   return <Modal open={open} onClose={onClose} title="Log in to Motify">
-      {!user && <form onSubmit={handleSubmit}>
+      {!auth.user && <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">
             Email*&nbsp;
@@ -51,11 +50,11 @@ export default function LoginModal({ open, onClose }) {
           Login
         </button>
       </form>}
-      {user && (
+      {auth.user && (
         <div>
-          Welcome back `{user.name}`
+          Welcome back `{auth.user.name}`
           <div>
-            <button type="button" onClick={() => setUser(null)}>
+            <button type="button" onClick={auth.actions.logout}>
               Logout
             </button>
           </div>
