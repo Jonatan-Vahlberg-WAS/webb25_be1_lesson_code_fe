@@ -6,21 +6,18 @@ function SongList({ songs }) {
   }
 
   return (
-    <table className="song-list">
-      <thead>
-        <tr>
-          <th className="col-index">#</th>
-          <th className="col-title">Title</th>
-          <th className="col-album">Album</th>
-          <th className="col-length">Duration</th>
-        </tr>
-      </thead>
-      <tbody>
-        {songs.map((song, i) => (
-          <SongItem key={song._id} song={song} index={i} />
-        ))}
-      </tbody>
-    </table>
+    <div className="song-list">
+      <div className="song-list__header">
+        <span className="song-list__col-index">#</span>
+        <span className="song-list__col-cover"></span>
+        <span className="song-list__col-title">Title</span>
+        <span className="song-list__col-album">Album</span>
+        <span className="song-list__col-duration">Duration</span>
+      </div>
+      {songs.map((song, i) => (
+        <SongItem key={song._id} song={song} index={i} />
+      ))}
+    </div>
   );
 }
 

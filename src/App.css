@@ -1,119 +1,257 @@
-.app-header {
-  padding: 32px 0 16px;
+/* ------------------------------------------------
+   Header
+   ------------------------------------------------ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg-raised);
   border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
 }
 
-.app-header h1 {
-  margin: 0;
-  font-size: 28px;
-  font-weight: 600;
+.header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent);
+}
+
+.brand-icon {
+  flex-shrink: 0;
+}
+
+.brand-name {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
   color: var(--text-h);
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ------------------------------------------------
+   Buttons
+   ------------------------------------------------ */
+.btn-ghost {
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--sans);
+  color: var(--text-h);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btn-ghost:hover {
+  background: var(--hover);
+  border-color: var(--text);
+}
+
+.btn-primary {
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--sans);
+  color: #000;
+  background: var(--accent);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+}
+
+.btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+/* ------------------------------------------------
+   Layout
+   ------------------------------------------------ */
+.app-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+  flex: 1;
 }
 
 .section {
-  padding: 24px 0;
+  padding: 32px 0;
 }
 
 .section h2 {
-  margin: 0 0 16px;
-  font-size: 20px;
-  font-weight: 500;
+  margin: 0 0 20px;
+  font-size: 22px;
+  font-weight: 700;
   color: var(--text-h);
+  letter-spacing: -0.3px;
 }
 
 .empty-state {
-  padding: 32px;
+  padding: 48px 24px;
   text-align: center;
   color: var(--text);
+  font-size: 15px;
 }
 
-/* Song list table */
-.song-list {
-  width: 100%;
-  border-collapse: collapse;
+/* ------------------------------------------------
+   Song list (grid layout)
+   ------------------------------------------------ */
+.song-list__header,
+.song-row {
+  display: grid;
+  grid-template-columns: 36px 44px 1fr minmax(100px, 0.6fr) 64px;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px;
 }
 
-.song-list thead th {
-  text-align: left;
-  font-size: 12px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text);
-  padding: 8px 12px;
+.song-list__header {
+  padding-top: 4px;
+  padding-bottom: 8px;
   border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text);
 }
 
-.song-list .col-index {
-  width: 40px;
+.song-list__col-index {
   text-align: center;
 }
 
-.song-list .col-length {
-  width: 80px;
+.song-list__col-duration {
   text-align: right;
 }
 
-/* Song item row */
-.song-item td {
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--border);
-  vertical-align: middle;
+/* Song row */
+.song-row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 6px;
+  transition: background 0.12s;
 }
 
-.song-item:hover td {
+.song-row:hover {
   background: var(--hover);
 }
 
-.song-item .song-index {
+.song-row__index {
   text-align: center;
-  color: var(--text);
   font-size: 14px;
   font-variant-numeric: tabular-nums;
+  color: var(--text);
 }
 
-.song-item .song-title {
+/* Album cover / placeholder */
+.song-cover {
+  width: 44px;
+  height: 44px;
+  border-radius: 4px;
+  object-fit: cover;
+  display: block;
+}
+
+.song-cover--placeholder {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  opacity: 0.55;
+}
+
+/* Title + artist */
+.song-row__info {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  min-width: 0;
 }
 
-.song-item .song-title .title {
+.song-row__title {
   color: var(--text-h);
   font-weight: 500;
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.song-item .song-title .artist {
+.song-row__artist {
   font-size: 13px;
   color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.song-item .song-album {
-  color: var(--text);
+/* Album name */
+.song-row__album {
   font-size: 14px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.song-item .song-length {
+/* Duration */
+.song-row__duration {
   text-align: right;
-  color: var(--text);
   font-size: 14px;
+  color: var(--text);
   font-variant-numeric: tabular-nums;
   font-family: var(--mono);
 }
 
-/* Create song form */
+/* ------------------------------------------------
+   Create song form card
+   ------------------------------------------------ */
 .create-song-form {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 24px;
   margin-bottom: 32px;
 }
 
 .create-song-form h3 {
   margin: 0 0 20px;
-  font-size: 17px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
   color: var(--text-h);
 }
 
@@ -123,6 +261,9 @@
   gap: 16px;
 }
 
+/* ------------------------------------------------
+   Form elements
+   ------------------------------------------------ */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -136,7 +277,8 @@
   letter-spacing: 0.01em;
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
   padding: 10px 12px;
   font-size: 15px;
   font-family: var(--sans);
@@ -148,34 +290,146 @@
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+.form-group select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+.form-group select:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .form-group input::placeholder {
   color: var(--text);
   opacity: 0.5;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group select:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-bg);
 }
 
-.btn-primary {
-  padding: 10px 20px;
+.field-error {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--danger);
+}
+
+.form-error {
+  margin: 0 0 16px;
+  padding: 10px 14px;
   font-size: 14px;
-  font-weight: 500;
-  font-family: var(--sans);
-  color: #fff;
-  background: var(--accent);
-  border: none;
+  color: var(--danger);
+  background: var(--danger-bg);
+  border: 1px solid rgba(239, 68, 68, 0.2);
   border-radius: 8px;
+}
+
+.form-status {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text);
+}
+
+/* ------------------------------------------------
+   Modal
+   ------------------------------------------------ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.15s ease-out;
+}
+
+.modal {
+  width: 400px;
+  max-width: calc(100% - 32px);
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+  animation: slideUp 0.2s ease-out;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 0;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-h);
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--text);
+  background: none;
+  border: none;
+  border-radius: 50%;
   cursor: pointer;
-  transition: opacity 0.2s, transform 0.1s;
-  white-space: nowrap;
+  transition: background 0.15s;
 }
 
-.btn-primary:hover {
-  opacity: 0.88;
+.modal-close:hover {
+  background: var(--hover);
+  color: var(--text-h);
 }
 
-.btn-primary:active {
-  transform: scale(0.97);
+.modal-body {
+  padding: 20px 24px 24px;
+}
+
+/* Login form inside modal */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login-hint {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--text);
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* ------------------------------------------------
+   Animations
+   ------------------------------------------------ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
